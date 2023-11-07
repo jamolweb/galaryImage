@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+}
+
+.littleimg {
+  width: 200px;
+  height: 200px;
+  margin: 100px 0 0 100px;
+  cursor: pointer;
+}
+
+.container {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+}
+.container .modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  width: 500px;
+}
+.container .modal .img2 {
+  min-width: 500px;
+  transition: all 1s;
+}
+.container .modal .buttons {
+  position: fixed;
+  bottom: 50px;
+  width: 450px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.container .modal .buttons svg {
+  cursor: pointer;
+}
+.container .modal .buttons svg path {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+}
+
+.yOqi {
+  transform: rotateX(180deg);
+}
+
+.xOqi {
+  transform: rotateY(180deg);
+}/*# sourceMappingURL=style.css.map */
