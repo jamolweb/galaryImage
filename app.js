@@ -1,61 +1,73 @@
-let img1 = document.querySelector('.littleimg');
-let img2 = document.querySelector('.img2');
+// Selectors
+const img1 = document.querySelector('.littleimg')
+const img2 = document.querySelector('.img2')
+const container = document.querySelector('.container')
+const Yoqi = document.querySelector('.y-oqi')
+const Xoqi = document.querySelector('.x-oqi')
+const chapgaAylan = document.querySelector('.chapgaaylan')
+const onggaAylan = document.querySelector('.onggaAylan')
+const zoomPlus = document.querySelector('.plus')
+const zoomMinus = document.querySelector('.minus')
 
-let container = document.querySelector('.container')
+// State
+let rotationDegree = 0
+let scale = 1
 
-let Yoqi = document.querySelector('.y-oqi')
-let Xoqi = document.querySelector('.x-oqi')
+// Functions
+const toggleDisplay = (element, displayStyle) => {
+	element.style.display = displayStyle
+}
 
-let chapgaAylan = document.querySelector('.chapgaaylan');
-let onggaAylan = document.querySelector('.onggaAylan')
+const toggleClass = (element, className) => {
+	element.classList.toggle(className)
+}
 
-let zoomPlus = document.querySelector('.plus')
-let zoomMinus = document.querySelector('.minus')
+const rotateImage = direction => {
+	rotationDegree += direction * 90
+	applyTransform()
+}
 
-img1.addEventListener('click', () => {
-    container.style.display = 'flex'
+const zoomImage = zoomFactor => {
+	scale = Math.max(1, scale + zoomFactor)
+	applyTransform()
+}
+
+const applyTransform = () => {
+	let transformString = `rotate(${rotationDegree}deg) scale(${scale})`
+
+	if (img2.classList.contains('yOqi')) {
+		transformString += ' rotateX(180deg)'
+	}
+	if (img2.classList.contains('xOqi')) {
+		transformString += ' rotateY(180deg)'
+	}
+
+	img2.style.transform = transformString
+}
+
+// Event Listeners
+img1.addEventListener('click', () => toggleDisplay(container, 'flex'))
+
+container.addEventListener('click', e => {
+	if (e.target.className === 'container') {
+		toggleDisplay(container, 'none')
+	}
 })
-container.addEventListener('click', (e) => {
-    if (e.target.className == 'container') {
-        container.style.display = 'none'
-    }
+
+Yoqi.addEventListener('click', () => {
+	console.log('Yoqi button clicked')
+	toggleClass(img2, 'yOqi')
+	applyTransform()
 })
 
-// ////// y oqi boyicha aylantirish
-Yoqi.addEventListener('click',()=>{
-    img2.classList.toggle('yOqi')
+Xoqi.addEventListener('click', () => {
+	console.log('Xoqi button clicked')
+	toggleClass(img2, 'xOqi')
+	applyTransform()
 })
-// ////// x oqi boyicha aylantirish
-Xoqi.addEventListener('click',()=>{
-    img2.classList.toggle('xOqi')
-})
-// //////chapga burish
-let boshlangichGradus = 90;
 
-chapgaAylan.addEventListener('click',()=>{
-    boshlangichGradus-=90;
-    img2.style.transform = `rotate(${boshlangichGradus}deg)`
-});
-onggaAylan.addEventListener('click',()=>{
-    boshlangichGradus+=90;
-    img2.style.transform = `rotate(${boshlangichGradus}deg)`
-});
+chapgaAylan.addEventListener('click', () => rotateImage(-1))
+onggaAylan.addEventListener('click', () => rotateImage(1))
 
-// /////////////////// ZOOM PULS VA MINUS
-let x = 1;
-let y = 1;
-zoomPlus.addEventListener('click',()=>{
-    x+=0.5
-    y+=0.5
-    img2.style.transform = `scale(${x},${y})`
-})
-zoomMinus.addEventListener('click',()=>{
-    x-=0.5
-    y-=0.5
-    if(x>=1 || y>=1){
-        img2.style.transform = `scale(${x},${y})`
-    } else{
-        x=1;
-        y=1;
-    }
-})
+zoomPlus.addEventListener('click', () => zoomImage(0.5))
+zoomMinus.addEventListener('click', () => zoomImage(-0.5))
